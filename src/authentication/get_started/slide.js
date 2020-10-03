@@ -36,20 +36,20 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 40,
-        fontFamily: 'SFProText-Bold',
+        // fontFamily: 'SFProText-Bold',
         color: 'white',
         textAlign: 'center'
     },
     subTitleStyle: {
         fontSize: 25,
-        fontFamily: 'SFProText-Semibold',
+        // fontFamily: 'SFProText-Semibold',
         color: '#e9f0ea',
         textAlign: 'center',
         marginTop: 30
     },
     descriptionStyle: {
         fontSize: 15,
-        fontFamily: 'SFProText-Semibold',
+        // fontFamily: 'SFProText-Semibold',
         color: '#e9f0ea',
         textAlign: 'center',
         marginTop: 15

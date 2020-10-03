@@ -7,13 +7,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import GetStarted from './src/authentication/get_started/get_started';
 import Main from './src/main/main'
-import LoadAssets from './src/components/load_assets';
 
-const fonts = {
-  "SFProText-Bold": require("./assets/fonts/SF-Pro-Text-Bold.otf"),
-  "SFProText-Semibold": require("./assets/fonts/SF-Pro-Text-Semibold.otf"),
-  "SFProText-Regular": require("./assets/fonts/SF-Pro-Text-Regular.otf"),
-};
+// const fonts = {
+//   "SFProText-Bold": require("./assets/fonts/SF-Pro-Text-Bold.otf"),
+//   "SFProText-Semibold": require("./assets/fonts/SF-Pro-Text-Semibold.otf"),
+//   "SFProText-Regular": require("./assets/fonts/SF-Pro-Text-Regular.otf"),
+// };
 
 // Creating Welcome screen 
 function WelcomeScreen({navigation}) {
@@ -46,9 +45,9 @@ const AppNavigator = () => {
 
 export default function App() {
   return (
-    <LoadAssets {...{fonts}}>
+    <NavigationContainer>
       <AppNavigator/>
-    </LoadAssets>
+    </NavigationContainer>
   );
 }
 

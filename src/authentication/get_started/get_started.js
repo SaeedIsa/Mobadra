@@ -127,6 +127,6 @@ const styles = StyleSheet.create({
     buttonTextStyle: {
         color: '#339c4d', 
         fontSize: 25,
-        fontFamily: 'SFProText-Semibold'
+        // fontFamily: 'SFProText-Semibold'
     }
 });

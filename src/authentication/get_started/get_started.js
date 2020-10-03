@@ -36,6 +36,7 @@ const gs_data = [
 ]
 
 const GetStarted = () => {
+    const {counter, setCounter} = useState(0);
     const scrollRef = useRef(null);
     return(
         <View style={styles.container}>
@@ -48,6 +49,10 @@ const GetStarted = () => {
                     showsHorizontalScrollIndicator={false}
                     scrollEventThrottle={1}
                     bounces={false}
+                    onScroll= { (e) => {
+                        console.log(e.nativeEvent.contentOffset.x)
+                        setCounter(counter + 1)
+                    }}
                     >
                     {gs_data.map( (pageInfo) => (
                         <Slide key={pageInfo.ID} 
@@ -62,11 +67,12 @@ const GetStarted = () => {
             <View style={styles.footer}>
                 <View style={{ ...StyleSheet.absoluteFillObject, backgroundColor: '#339c4d'}}></View>
                 <View style={styles.footerContent} >
-                <RectButton style={styles.buttonStyle} 
+                  <RectButton style={styles.buttonStyle} 
                         onPress={() => {
                                 console.log('on press, scrolling to');
-                                console.log(scrollIdx * width);
-                                ref.scrollTo({x: scrollIdx * width , animated: true});
+                                // console.log(scrollIdx * width);
+                                // ref.scrollTo({x: scrollIdx * width , animated: true});
+                                console.log(scrollRef.current)
                         }}
                     >
                         <Text style={styles.buttonTextStyle}>

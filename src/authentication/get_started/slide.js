@@ -3,15 +3,18 @@ import {StyleSheet, View, Text, Dimensions} from 'react-native';
 
 const {width} = Dimensions.get("window")
 
-const Slide = ({label}) => {
+const Slide = ({title, subtitle, description, image }) => {
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>
-                    {label}
+                    {title}
                 </Text>
-                <Text style={styles.textStyle}>
-                    some text describe getting started relevant step ...
+                <Text style={styles.subTitleStyle}>
+                    {subtitle}
+                </Text>
+                <Text style={styles.descriptionStyle}>
+                    {description}
                 </Text>
             </View>
         </View>
@@ -27,7 +30,9 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
         justifyContent: 'center',
-        marginTop: 30
+        marginTop: 40,
+        marginLeft: 20,
+        marginRight: 20
     },
     title: {
         fontSize: 40,
@@ -35,11 +40,18 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center'
     },
-    textStyle: {
+    subTitleStyle: {
         fontSize: 25,
         fontFamily: 'SFProText-Semibold',
         color: '#e9f0ea',
         textAlign: 'center',
         marginTop: 30
+    },
+    descriptionStyle: {
+        fontSize: 15,
+        fontFamily: 'SFProText-Semibold',
+        color: '#e9f0ea',
+        textAlign: 'center',
+        marginTop: 15
     }
 });

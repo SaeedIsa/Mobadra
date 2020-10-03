@@ -76,16 +76,15 @@ const GetStarted = ({navigation}) => {
                 <View style={styles.footerContent} >
                   <RectButton style={styles.buttonStyle} 
                         onPress={() => {
-                                console.log('on press, scrolling to user main screens');
-                                console.log('scroll idx is', scrollIdx);
                                 scrollRef.current.scrollTo({x: (scrollIdx + 1) * width , animated: true});
                                 if (scrollIdx !== (gs_data.length - 1)) {
                                     setScrollIdx((scrollIdx) => (scrollIdx + 1))
+                                } else {
+                                    navigation.navigate('Main');
                                 }
-                        }}
-                    >
+                        }}>
                         <Text style={styles.buttonTextStyle}>
-                            nnext
+                            {scrollIdx !== (gs_data.length - 1) ? 'next' : 'lets go'}  
                         </Text>
                     </RectButton>
                 </View>
@@ -94,30 +93,6 @@ const GetStarted = ({navigation}) => {
     );
 }
 
-{/* <Animated.View 
-                    style={
-                        [styles.footerContent, 
-                        {width: width * gs_data.length,
-                        transform: [{
-                            translateX: multiply(x, -1)
-                        }]
-                    }]}>
-                    {gs_data.map( (_, index) => (
-                        <Footer key={index} last={index === (gs_data.length -1)}></Footer>
-                    ))}
-                </Animated.View> */}
-
-{/* <RectButton style={styles.buttonStyle} 
-                        onPress={() => {
-                                console.log('on press, scrolling to');
-                                console.log(scrollIdx * width);
-                                ref.scrollTo({x: scrollIdx * width , animated: true});
-                        }}
-                    >
-                        <Text style={styles.buttonTextStyle}>
-                            nnext
-                        </Text>
-                    </RectButton> */}
 export default GetStarted
 
 const styles = StyleSheet.create({

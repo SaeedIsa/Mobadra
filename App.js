@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import GetStarted from './src/authentication/get_started/get_started';
+import Main from './src/main/main'
 import LoadAssets from './src/components/load_assets';
 
 const fonts = {
@@ -38,6 +39,7 @@ const AppNavigator = () => {
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="Welcome" component={WelcomeScreen}/>
       <Stack.Screen name="getStarted" component={GetStarted}/>
+      <Stack.Screen name="Main" component={Main}/>
     </Stack.Navigator>
   )
 };

@@ -8,7 +8,7 @@ import {useScrollHandler} from 'react-native-redash';
 import Footer from './footer';
 
 import Slide from './slide'
-
+import Main from '../../main/main'
 const {width, height} = Dimensions.get('window');
 
 const gs_data = [
@@ -35,7 +35,7 @@ const gs_data = [
 	}
 ]
 
-const GetStarted = () => {
+const GetStarted = ({navigation}) => {
     const scrollRef = useRef(null);
     return(
         <View style={styles.container}>
@@ -49,7 +49,7 @@ const GetStarted = () => {
                     scrollEventThrottle={1}
                     bounces={false}
                     onScroll= { (e) => {
-                        console.log(e.nativeEvent.contentOffset.x)
+                        // console.log(e.nativeEvent.contentOffset.x)
                     }}
                     >
                     {gs_data.map( (pageInfo) => (
@@ -67,10 +67,12 @@ const GetStarted = () => {
                 <View style={styles.footerContent} >
                   <RectButton style={styles.buttonStyle} 
                         onPress={() => {
-                                console.log('on press, scrolling to');
+                                console.log('on press, scrolling to user main screens');
+                                
                                 // console.log(scrollIdx * width);
                                 // ref.scrollTo({x: scrollIdx * width , animated: true});
                                 // console.log(scrollRef.current)
+                                navigation.navigate('Main');
                         }}
                     >
                         <Text style={styles.buttonTextStyle}>

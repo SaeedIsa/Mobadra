@@ -36,7 +36,6 @@ const gs_data = [
 ]
 
 const GetStarted = () => {
-    const {counter, setCounter} = useState(0);
     const scrollRef = useRef(null);
     return(
         <View style={styles.container}>
@@ -51,7 +50,6 @@ const GetStarted = () => {
                     bounces={false}
                     onScroll= { (e) => {
                         console.log(e.nativeEvent.contentOffset.x)
-                        setCounter(counter + 1)
                     }}
                     >
                     {gs_data.map( (pageInfo) => (
@@ -72,7 +70,7 @@ const GetStarted = () => {
                                 console.log('on press, scrolling to');
                                 // console.log(scrollIdx * width);
                                 // ref.scrollTo({x: scrollIdx * width , animated: true});
-                                console.log(scrollRef.current)
+                                // console.log(scrollRef.current)
                         }}
                     >
                         <Text style={styles.buttonTextStyle}>

@@ -2,8 +2,6 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useRef, useState} from 'react';
 import {View, StyleSheet, Dimensions, ScrollView, Text, Animated} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler'
-import { multiply } from 'react-native-reanimated';
-import {useScrollHandler} from 'react-native-redash';
 
 import Footer from './footer';
 
@@ -37,19 +35,30 @@ const gs_data = [
 
 const GetStarted = ({navigation}) => {
     const scrollRef = useRef(null);
+    const [scrollIdx, setScrollIdx] = useState(0);
+    const [offset, setOffset] = useState(0);
     return(
         <View style={styles.container}>
             <View style={styles.slider}>
-                <Animated.ScrollView
+                <ScrollView
                     ref={scrollRef}
                     horizontal
                     snapToInterval={width}
                     decelerationRate="fast"
                     showsHorizontalScrollIndicator={false}
-                    scrollEventThrottle={1}
+                    scrollEventThrottle={16}
                     bounces={false}
-                    onScroll= { (e) => {
-                        // console.log(e.nativeEvent.contentOffset.x)
+                    onScrollEndDrag= { (e) => {
+                        if (e.nativeEvent.contentOffset.x > offset) {
+                            if (scrollIdx !== (gs_data.length - 1)) {
+                                setScrollIdx(scrollIdx => (scrollIdx + 1));
+                            }
+                        } else {
+                            if (scrollIdx !== 0) {
+                                setScrollIdx(scrollIdx => (scrollIdx - 1));
+                            }
+                        }
+                        setOffset(e.nativeEvent.contentOffset.x);
                     }}
                     >
                     {gs_data.map( (pageInfo) => (
@@ -60,7 +69,7 @@ const GetStarted = ({navigation}) => {
                         image={pageInfo.Image}
                         />
                     ))}
-                </Animated.ScrollView>
+                </ScrollView>
             </View>
             <View style={styles.footer}>
                 <View style={{ ...StyleSheet.absoluteFillObject, backgroundColor: '#339c4d'}}></View>
@@ -68,11 +77,11 @@ const GetStarted = ({navigation}) => {
                   <RectButton style={styles.buttonStyle} 
                         onPress={() => {
                                 console.log('on press, scrolling to user main screens');
-                                
-                                // console.log(scrollIdx * width);
-                                // ref.scrollTo({x: scrollIdx * width , animated: true});
-                                // console.log(scrollRef.current)
-                                navigation.navigate('Main');
+                                console.log('scroll idx is', scrollIdx);
+                                scrollRef.current.scrollTo({x: (scrollIdx + 1) * width , animated: true});
+                                if (scrollIdx !== (gs_data.length - 1)) {
+                                    setScrollIdx((scrollIdx) => (scrollIdx + 1))
+                                }
                         }}
                     >
                         <Text style={styles.buttonTextStyle}>

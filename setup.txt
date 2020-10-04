@@ -13,6 +13,10 @@ expo install
 expo start
 
 ########################## Fix Issues #########################################################################################
+#Fix powershell can't run scripts error 
+ For visual studio code settings, go to File -> Preferences -> Settings -> Extensions -> Scroll down and find "Edit in settings.json". Do not forget to restart the visual studio code
+"terminal.integrated.shellArgs.windows": ["-ExecutionPolicy", "Bypass"]
+
 #Fix can't access expo on LAN connection
 1- make sure you are on the same network  
 2- make sure your network is defined as private (YOUR_NETWORK => properties => private)

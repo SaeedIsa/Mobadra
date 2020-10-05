@@ -1,0 +1,24 @@
+
+########################## Setup Commands ####################################################################################
+#install expo cli
+npm install expo-cli --global
+
+#install new packages (needed at least for first time install)
+npm install
+
+#install new packages
+expo install
+
+#Run expo server
+expo start
+
+########################## Fix Issues #########################################################################################
+#Fix powershell can't run scripts error 
+ For visual studio code settings, go to File -> Preferences -> Settings -> Extensions -> Scroll down and find "Edit in settings.json". Do not forget to restart the visual studio code
+"terminal.integrated.shellArgs.windows": ["-ExecutionPolicy", "Bypass"]
+
+#Fix can't access expo on LAN connection
+1- make sure you are on the same network  
+2- make sure your network is defined as private (YOUR_NETWORK => properties => private)
+3- Nodejs server allowed by firewall (YOUR_NETWORK => properties => Configure firewall and security settings => Allow app through firewall => add Nodejs server side JavaScript)
+

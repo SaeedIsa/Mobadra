@@ -1,7 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
+import React, {useState, useEffect} from 'react';
 
-import React from 'react';
-import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ActivityIndicator} from 'react-native';
 import { generate } from 'shortid';
 import { EvilIcons } from '@expo/vector-icons';
 
@@ -64,6 +63,15 @@ const DATA = [
   },
 ];
 
+import * as firebase from 'firebase';
+
+// Optionally import the services that you want to use
+import "firebase/auth";
+import "firebase/database";
+import "firebase/firestore";
+
+
+import firebaseConfig from '../firebase/firebase'
 
 const Item = ({ title, location }) => (
   <View style={styles.listStyle}>
@@ -81,14 +89,55 @@ const Item = ({ title, location }) => (
 );
 
 function Home() {
-  const renderItem = ({ item }) => (
-    <Item title={item.title} location={item.location} />
-  );
+  const [loading, setLoading] = useState(true); // Set loading to true on component mount
+  const [educationEvents, setEducationEvents] = useState([]);  // Initial empty array of events
+  if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+  }
+
+  useEffect(() => {
+    const subscriber = firebase.firestore()
+      .collection('initiatives')
+      .onSnapshot(querySnapshot => {
+        const events = [];
+  
+        querySnapshot.forEach(documentSnapshot => {
+          events.push({
+            ...documentSnapshot.data(),
+            key: documentSnapshot.id,
+          });
+        });
+
+        // Events list has all categories and their values
+        const ed_events = []
+        events.forEach((arrayItem) => {
+          Object.keys(arrayItem).forEach(function(eventKey) {
+            if (arrayItem[eventKey] !== 'education') {
+              ed_events.push(arrayItem[eventKey])
+            }
+          });
+        });
+        setEducationEvents(ed_events);
+        setLoading(false);
+      });
+  
+    // Unsubscribe from events when no longer in use
+    return () => subscriber();
+  }, []);
+
+  if (loading) {
+    return <ActivityIndicator />;
+  }
+
+  const renderItem = ({ item }) => {
+    return (
+    <Item title={item.Title} location={item.Location} />
+  )};
 
   return (
     <View style={styles.container}>
        <FlatList
-        data={DATA}
+        data={educationEvents}
         renderItem={renderItem}
         style={{marginTop: 40}}
         keyExtractor={item => generate()}

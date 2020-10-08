@@ -99,25 +99,12 @@ function Home() {
     const subscriber = firebase.firestore()
       .collection('initiatives')
       .onSnapshot(querySnapshot => {
-        const events = [];
-  
+        const events = {};
         querySnapshot.forEach(documentSnapshot => {
-          events.push({
-            ...documentSnapshot.data(),
-            key: documentSnapshot.id,
-          });
+          events[documentSnapshot.id] = Object.values(documentSnapshot.data())
         });
-
-        // Events list has all categories and their values
-        const ed_events = []
-        events.forEach((arrayItem) => {
-          Object.keys(arrayItem).forEach(function(eventKey) {
-            if (arrayItem[eventKey] !== 'education') {
-              ed_events.push(arrayItem[eventKey])
-            }
-          });
-        });
-        setEducationEvents(ed_events);
+        
+        setEducationEvents(events['education']);
         setLoading(false);
       });
   

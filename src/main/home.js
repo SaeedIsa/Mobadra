@@ -109,6 +109,7 @@ function Home() {
       });
   
     // Unsubscribe from events when no longer in use
+    // we can attach a callback for database changes
     return () => subscriber();
   }, []);
 
@@ -118,11 +119,11 @@ function Home() {
 
   const renderItem = ({ item }) => {
     return (
-    <Item title={item.Title} location={item.Location} />
+    <Item title={item.Title} location={item.Location}  />
   )};
 
   return (
-    <View style={styles.container}>
+     <View style={styles.container}>
        <FlatList
         data={educationEvents}
         renderItem={renderItem}

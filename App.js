@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {A, useEffect, useState} from 'react';
+import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -16,9 +17,29 @@ import Main from './src/main/main'
 
 // Creating Welcome screen 
 function WelcomeScreen({navigation}) {
+  
+  const [opened, setOpened] = useState(false);
+  const loadData = async () => {
+    const openedApp = await AsyncStorage.getItem('@APPConfig:Opened');
+    if (openedApp) {
+      const openedAppParsed = JSON.parse(openedApp);
+      setOpened(openedApp);
+    }
+  }
+
+  useEffect(() => {
+    loadData();
+  }, [opened]);
+
+  
+
   setTimeout(() => {
     // Moving to HomeScreen after timeout - this meant to be loading welcome page
-    navigation.navigate('getStarted');
+    if (opened) {
+      navigation.navigate('Main');
+    } else {
+      console.log('never opened');
+    }
   }, 5000);  // 5000 millisecond => 3 seconds
     
   return (

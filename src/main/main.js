@@ -7,7 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 // Tab screens
 import Home from './home'
-import Notifications from './notifications'
+import CustomNotifications from './custom_notifications'
 import Favorites from './favorites'
 
 const Tab = createMaterialBottomTabNavigator();
@@ -37,7 +37,7 @@ function Main() {
       />
       <Tab.Screen
         name="Notifications"
-        component={Notifications}
+        component={CustomNotifications}
         options={{
           tabBarLabel: 'Inbox',
           tabBarBadge: 3,

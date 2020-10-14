@@ -66,12 +66,8 @@ const DATA = [
 import * as firebase from 'firebase';
 
 // Optionally import the services that you want to use
-import "firebase/auth";
-import "firebase/database";
 import "firebase/firestore";
 
-
-import firebaseConfig from '../firebase/firebase'
 
 const Item = ({ title, location }) => (
   <View style={styles.listStyle}>

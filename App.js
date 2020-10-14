@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {A, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 
 
@@ -7,7 +7,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import GetStarted from './src/authentication/get_started/get_started';
-import Main from './src/main/main'
+import Main from './src/main/main';
+import Login from './src/authentication/login/login';
+import Signin from './src/authentication/login/signin';
+import Signup from './src/authentication/login/signup';
 
 // const fonts = {
 //   "SFProText-Bold": require("./assets/fonts/SF-Pro-Text-Bold.otf"),
@@ -15,9 +18,14 @@ import Main from './src/main/main'
 //   "SFProText-Regular": require("./assets/fonts/SF-Pro-Text-Regular.otf"),
 // };
 
+import * as firebase from 'firebase';
+import firebaseConfig from './src/firebase/firebase'
+
 // Creating Welcome screen 
 function WelcomeScreen({navigation}) {
-  
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
   const [opened, setOpened] = useState(false);
   const loadData = async () => {
     const openedApp = await AsyncStorage.getItem('@APPConfig:Opened');
@@ -31,17 +39,17 @@ function WelcomeScreen({navigation}) {
     loadData();
   }, [opened]);
 
-  
-
   setTimeout(() => {
     // Moving to HomeScreen after timeout - this meant to be loading welcome page
     if (opened) {
-      navigation.navigate('Main');
+      console.log('navigating to login');
+      navigation.navigate('Login');
     } else {
-      console.log('never opened');
+      console.log('navigating to get started');
+      navigation.navigate('getStarted');
     }
   }, 5000);  // 5000 millisecond => 3 seconds
-    
+  
   return (
     <View style={styles.container}>
       <Text style={styles.welcomeText}>
@@ -60,6 +68,9 @@ const AppNavigator = () => {
       <Stack.Screen name="Welcome" component={WelcomeScreen}/>
       <Stack.Screen name="getStarted" component={GetStarted}/>
       <Stack.Screen name="Main" component={Main}/>
+      <Stack.Screen name="Login" component={Login}/>
+      <Stack.Screen name="Signin" component={Signin}/>
+      <Stack.Screen name="Signup" component={Signup}/>
     </Stack.Navigator>
   )
 };

@@ -3,23 +3,16 @@ import { Text, View, ActivityIndicator, StyleSheet, TextInput, TouchableOpacity 
 
 import * as firebase from 'firebase';
 
-function Signup ({navigation}) {
-    const [fullName, setFullName] = useState("");
+function Signin ({navigation}) {
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
-    const [repass, setRepass] = useState("");
     const [error, setError] = useState(null);
-    const [welcome, setWelcome] = useState(null);
 
-    const handleSignUp = () => {
-        firebase.auth().createUserWithEmailAndPassword(email, pass).then(() => {
-            console.log('User account created & signed in!');
-            setWelcome('Welcome to mobadra!')
-          })
-          .catch(error => {
+    const handleLogin = () => {
+        firebase.auth().signInWithEmailAndPassword(email, pass).catch(error => {
             console.log('error code is', error.code)
-            if (error.code === 'auth/email-already-in-use') {
-                setError('That email address is already in use!');
+            if (error.code === 'auth/user-not-found') {
+                setError('Email not found, sign up man!');
             } else if(error.code === 'auth/invalid-email') {
                 setError('That email address is invalid!');
             } else {
@@ -28,19 +21,17 @@ function Signup ({navigation}) {
         })
     }
 
+    const handleSignup = () => {
+        navigation.navigate('Signup')
+    }
+
     return (
         <View style={styles.container}>
-            <Text style={{fontSize: 20}}>Regiter to Mobaaaadra</Text>
+            <Text style={{fontSize: 20}}>Welcome back!!!!!</Text>
             <View style={{height: 72, alignItems: 'center', justifyContent: 'center'}}>
                 {error && <Text style={{fontSize: 15, color: 'red'}}>{error}</Text>}
             </View>
             <View style={styles.form}>
-                <View>
-                    <Text style={styles.inputTitle}>Full name:</Text>
-                    <TextInput style={styles.textInput} autoCapitalize='none' 
-                    onChangeText={fullName => setFullName(fullName) }
-                    value={fullName}></TextInput>
-                </View>
                 <View>
                     <Text style={styles.inputTitle}>Email:</Text>
                     <TextInput style={styles.textInput} autoCapitalize='none' 
@@ -53,19 +44,14 @@ function Signup ({navigation}) {
                     onChangeText={ pass => setPass(pass)}
                     value={pass}></TextInput>
                 </View>
-                <View>
-                    <Text style={styles.inputTitle}>Confirm Password:</Text>
-                    <TextInput style={styles.textInput} secureTextEntry autoCapitalize='none' 
-                    onChangeText={ repass => setRepass(repass)}
-                    value={repass}></TextInput>
-                </View>
             </View>
-            <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-                <Text style={{fontSize: 20, color: '#FFF'}}>Sign up </Text>
+            <TouchableOpacity style={styles.button} onPress={handleLogin}>
+                <Text style={{fontSize: 20, color: '#FFF'}}>Sign in </Text>
             </TouchableOpacity>
-            <View style={{height: 72, alignItems: 'center', justifyContent: 'center'}}>
-                {welcome && <Text style={{fontSize: 18, color: 'green'}}>{welcome} {fullName}</Text>}
-            </View>
+
+            <TouchableOpacity style={{alignSelf: 'center', marginTop: 12}} onPress={handleSignup}>
+                <Text style={{fontSize: 15, color: '#414959'}}>Not in Mobadra?! <Text style={{fontSize: 15, color:'blue'}}>Sign up</Text></Text>
+            </TouchableOpacity>
         </View>
     );
 
@@ -107,5 +93,5 @@ const styles = StyleSheet.create({
     }
   });
   
-export default Signup
+export default Signin
 

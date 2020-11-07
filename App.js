@@ -6,7 +6,7 @@ import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import GetStarted from './src/authentication/get_started/get_started';
+import AppIntroduction from './src/authentication/AppIntroduction/AppIntroduction';
 import Main from './src/main/main';
 import Login from './src/authentication/login/login';
 import Signin from './src/authentication/login/signin';
@@ -43,10 +43,10 @@ function WelcomeScreen({navigation}) {
     // Moving to HomeScreen after timeout - this meant to be loading welcome page
     if (opened) {
       console.log('navigating to login');
-      navigation.navigate('Login');
+      navigation.navigate('AppIntroduction');
     } else {
-      console.log('navigating to get started');
-      navigation.navigate('getStarted');
+      console.log('navigating to App introduction');
+      navigation.navigate('AppIntroduction');
     }
   }, 5000);  // 5000 millisecond => 3 seconds
   
@@ -66,7 +66,7 @@ const AppNavigator = () => {
   return (
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="Welcome" component={WelcomeScreen}/>
-      <Stack.Screen name="getStarted" component={GetStarted}/>
+      <Stack.Screen name="AppIntroduction" component={AppIntroduction}/>
       <Stack.Screen name="Main" component={Main}/>
       <Stack.Screen name="Login" component={Login}/>
       <Stack.Screen name="Signin" component={Signin}/>

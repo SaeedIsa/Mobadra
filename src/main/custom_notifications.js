@@ -1,8 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import * as firebase from 'firebase';
 
+// Optionally import the services that you want to use
+import "firebase/auth";
 // const Hexagon = () => {
 //   return (
 //     <View style={styles.hexagon}>
@@ -14,12 +17,15 @@ import { StyleSheet, Text, View } from 'react-native';
 //         </Text>
 //       </View>
 //   );}
-
+const signout = () => {
+  firebase.auth().signOut();
+}
 function CustomNotifications() {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome_txt}>this is notifications screen</Text>
       <Text style={styles.secondary_welcome_txt}>notifications list</Text>
+      <Button title={'Sign out'} onPress={signout}></Button>
       {/* <Hexagon>
         <Text style={{fontSize: 20, color: 'black'}}>
           try1

@@ -6,11 +6,12 @@ import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import AppIntroduction from './src/authentication/AppIntroduction/AppIntroduction';
+import AppIntroduction from './src/authentication/introduction/app_introduction';
 import Main from './src/main/main';
 import Login from './src/authentication/login/login';
 import Signin from './src/authentication/login/signin';
 import Signup from './src/authentication/login/signup';
+import ForgotPassword from './src/authentication/login/forgot_password';
 
 // const fonts = {
 //   "SFProText-Bold": require("./assets/fonts/SF-Pro-Text-Bold.otf"),
@@ -71,6 +72,7 @@ const AppNavigator = () => {
       <Stack.Screen name="Login" component={Login}/>
       <Stack.Screen name="Signin" component={Signin}/>
       <Stack.Screen name="Signup" component={Signup}/>
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
     </Stack.Navigator>
   )
 };

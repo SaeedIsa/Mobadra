@@ -53,7 +53,7 @@ const AppIntroduction = ( { navigation } ) => {
   const windowWidth = useWindowDimensions().width;
   const GetButtonHandler = (slide, slideIndex,buttonData) => { 
     if(buttonData.handler === 'get_started'){
-      return () => { navigation.navigate("Main") }
+      return () => { navigation.navigate("Login") }
     }
     if(buttonData.handler === 'scroll_to_end'){
       return () => {

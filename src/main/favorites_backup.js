@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList, ImageBackground, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ImageBackground, TouchableOpacity } from 'react-native';
 import CustomHexagon from '../components/custom_icons/hexagon';
 import CustomEvent from '../components/custom_icons/event_svg';
 import CustomEventRow from '../components/custom_icons/event_row';
@@ -27,12 +27,6 @@ const index_2_color = {
   }
 }
 
-const i_2_color = {
-    0: "#4997a5",
-    1: "#76c9cf",
-    2: "#2f7a92"
-  }
-
 const Categories = [
   "Education",
   "Gardening",
@@ -51,43 +45,30 @@ const Data = [
   {"id": 2},
   {"id": 2},
 
-  {"id": 2},
-  {"id": 2},
-  {"id": 2},
-  {"id": 2},
 ]
-
-const window_width = Dimensions.get('window').width
-const event_width = Dimensions.get('window').width/2
 
 function Favorites() {
   const [category, setCategory] = useState('Education')
   const renderEvent = ({ item, index }) => {
     // console.log('rendering', item, 'index ', index)
-    const i = index % 2;
-    const flex_p = i === 0 ? 'flex-start' : 'flex-end'
-    const top_p = index * 95;
-    const c = index%3;
-    console.log(i, flex_p, top_p, i_2_color[c])
-
+    const i = index % 3;
+    // console.log(i, index_2_color[i])
     return (
-          <View style={{marginHorizontal: 10, position:'absolute', top:top_p}}>
-            <TouchableOpacity style={{alignSelf:flex_p}} onPress={() => console.log(item, index)}>
-            <CustomEvent color_map={i_2_color[c]} >
-            </CustomEvent>
-            </TouchableOpacity>
-          </View>
+        <CustomEventRow
+          colors_map={index_2_color[i]} 
+          first={index===0 ? true : false}
+          last={index===(Data.length -1) ? true : false}
+          ></CustomEventRow>
       )};
-
   const on_category_select = (new_category) => {
     console.log(new_category);
     setCategory(new_category);
   }
-
   const renderCategory = ({ item, index }) => {
     // console.log('rendering', item, 'index ', index)
     const bg_color = item === category ? '#46474a' : 'transparent';
     const txt_color = item === category ? '#fff' : '#46474a';
+    
     return (
       <TouchableOpacity style={{height: 40, alignContent:'center', alignItems: 'center', alignSelf:'flex-end', 
                   justifyContent:'center', marginRight: 10,  width: 140, borderColor: '#6c6d70', backgroundColor: bg_color, borderWidth: 4, borderRadius: 10}}
@@ -97,6 +78,7 @@ function Favorites() {
       )};
 
   return (
+    
     <View style={styles.container}>
       <ImageBackground source={require('../../assets/edu_bg.png')} style={styles.image}>
         <View style={{width: '100%', height: '25%'}}>
@@ -139,6 +121,12 @@ const styles = StyleSheet.create({
       marginTop: 50,
       textAlign: 'center',
     },
+    secondary_welcome_txt: {
+      fontWeight:"bold",
+      fontSize:40,
+      color:"#339c4d",
+      textAlign: 'center',
+    },
     image: {
       flex: 1,
       width: '100%',
@@ -149,6 +137,12 @@ const styles = StyleSheet.create({
       flex: 1,
       width: '100%',
       height: '20%',
+    },
+    linearGradient: {
+      flex: 1,
+      paddingLeft: 15,
+      paddingRight: 15,
+      borderRadius: 5
     }
   });
   

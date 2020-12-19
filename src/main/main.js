@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Navigation components, tab and icons
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -25,7 +25,12 @@ function Main() {
       activeColor="#f0edf6"
       shifting={true}
       inactiveColor="#3e2465"
-      barStyle={{backgroundColor: '#339c4d', opacity: 70, borderColor: '#989898', borderWidth:2}}
+      barStyle={{
+          backgroundColor: 'transparent',
+          position: 'absolute',
+          height: 45,
+          marginBottom: 5,
+      }}
       >
       <Tab.Screen name="News" component={Home}
         options={{  

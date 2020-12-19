@@ -1,14 +1,14 @@
 
 const firebaseConfig = {
-    apiKey: "AIzaSyD0S5j1j9cqv8RxSNYftuH7lVtQ4IPGJ_g",
-    authDomain: "mobadra-10d80.firebaseapp.com",
-    databaseURL: "https://mobadra-10d80.firebaseio.com",
-    projectId: "mobadra-10d80",
-    storageBucket: "mobadra-10d80.appspot.com",
-    messagingSenderId: "599978448824",
-    appId: "1:599978448824:web:c2f231eb21bd91b1cc614d",
-    measurementId: "G-S0KWW786PY"
-  };
+  apiKey: "AIzaSyD0S5j1j9cqv8RxSNYftuH7lVtQ4IPGJ_g",
+  authDomain: "mobadra-10d80.firebaseapp.com",
+  databaseURL: "https://mobadra-10d80.firebaseio.com",
+  projectId: "mobadra-10d80",
+  storageBucket: "mobadra-10d80.appspot.com",
+  messagingSenderId: "599978448824",
+  appId: "1:599978448824:web:c2f231eb21bd91b1cc614d",
+  measurementId: "G-S0KWW786PY"
+};
 
 export default firebaseConfig
 

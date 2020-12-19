@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { Text, View, ActivityIndicator, StyleSheet, TextInput, TouchableOpacity, Dimensions, Alert } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native';
 import { Entypo, FontAwesome } from '@expo/vector-icons';
 
 import * as firebase from 'firebase';
+import shared_styles from '../../custom_styles/shared_styles'
+
 const {width, height} = Dimensions.get('window');
 
 
@@ -11,11 +13,12 @@ function Signin ({navigation}) {
     const [pass, setPass] = useState("");
     const [error, setError] = useState(null);
 
-    const handleLogin = () => {
+    // Email and password log in handler
+    const loginWithEmail = () => {
         firebase.auth().signInWithEmailAndPassword(email, pass).catch(error => {
             console.log('error code is', error.code)
             if (error.code === 'auth/user-not-found') {
-                setError('Email not found, sign up man!');
+                setError('Email not found, sign up and be part of Mobadra!');
             } else if(error.code === 'auth/invalid-email') {
                 setError('That email address is invalid!');
             } else {
@@ -32,40 +35,15 @@ function Signin ({navigation}) {
         navigation.navigate('ForgotPassword')
     }
 
-    async function loginWithFacebook() {
-        try {
-            await Facebook.initializeAsync({
-                appId: '3433583816677371',
-              });
-            const {type, token } = await Facebook.logInWithReadPermissionsAsync({permissions: ['public_profile'],});
-            if (type === 'success') {
-                console.log('user has suuccceeeded his login ');
-                console.log('type and token', type, token)
-              const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-              Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
-                const facebookCredential = firebase.auth.FacebookAuthProvider.credential(token)
-                // Sign-in the user with the credential
-                console.log('cred', facebookCredential)
-                firebase.auth().signInWithCredential(facebookCredential).catch(error => {
-                    console.log('error siginig innnnn', error.code);
-                });
-            } else {
-              console.log('user has cancelled his login ');
-            }
-          } catch ({ message }) {
-            console.log('user has cancelled his login ', message);
-            }
-    }   
-    
     return (
         <View style={styles.container}>
             <View style={styles.emailSignin}>
-                <Text style={[styles.logo, {fontSize: 30, color: 'white', fontWeight: 'bold'}]}>
-                    Welcome back!!!!!
+                <Text style={[shared_styles.logo, {fontSize: 30, color: 'white', fontWeight: 'bold'}]}>
+                    Logo!
                 </Text>
-                <View style={styles.errorView}>
-                    {error && <Text style={styles.errorMessage}>{error}</Text>}
-                </View>
+                <View style={shared_styles.errorView}>
+                    {error && <Text style={shared_styles.errorMessage}>{error}</Text>}
+                </View>``
                 <View style={styles.signinForm}>
                     <View>
                         <TextInput style={styles.textInput} autoCapitalize='none' 
@@ -93,7 +71,7 @@ function Signin ({navigation}) {
                 </View>
                 <TouchableOpacity 
                     style={styles.button} 
-                    onPress={handleLogin}>
+                    onPress={loginWithEmail}>
                     <Text style={{fontSize: 30, color: '#FFF', fontWeight: '700'}}>Sign in </Text>
                 </TouchableOpacity>
             </View>
@@ -101,12 +79,14 @@ function Signin ({navigation}) {
                 <View style={{ ...StyleSheet.absoluteFillObject, backgroundColor: '#006837'}}></View>
                 <View style={[styles.footerContent] }>
                     <View style={[styles.button, styles.socialButton]}>
-                        <FontAwesome.Button name="facebook" backgroundColor="#3b5998" size={22} onPress={() => {console.log('facebook')}}>
+                        {/* TODO: Facebook log in handler implementation */}
+                        <FontAwesome.Button name="facebook" backgroundColor="#3b5998" size={22} onPress={() => {console.log('Facebook')}}>
                             Login with Facebook
                         </FontAwesome.Button>
                     </View>
                     <View style={[styles.button, styles.socialButton]}>
-                        <FontAwesome.Button name="google" backgroundColor="#dd4b39" size={22} onPress={() => {console.log('google')}}>
+                        {/* TODO: Google log in handler implementation */}
+                        <FontAwesome.Button name="google" backgroundColor="#dd4b39" size={22} onPress={() => {console.log('Google')}}>
                             Login with google
                         </FontAwesome.Button>
                     </View>
@@ -139,20 +119,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white', 
         borderTopLeftRadius: 75,
         justifyContent: 'center', alignContent: 'center'
-    },
-    logo: {
-        marginHorizontal: 30,
-        marginTop: 40
-    },
-    errorView: {
-        height: 72,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    errorMessage: {
-        fontSize: 18,
-        color: 'red',
-        fontWeight: 'bold'
     },
     signinForm: {
         marginBottom: 20,

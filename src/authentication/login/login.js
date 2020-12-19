@@ -1,29 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import { Text, View, ActivityIndicator, StyleSheet } from 'react-native';
+import { Text, View, ActivityIndicator} from 'react-native';
 
-import Signin from './signin';
-import Main from '../../main/main';
 import * as firebase from 'firebase';
-
-// Optionally import the services that you want to use
 import "firebase/auth";
-import "firebase/database";
-import "firebase/firestore";
 
 
 function Login({navigation}) {
-  // Set an initializing state whilst Firebase connects
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
-
-  console.log('Debug1');
-
-  // Handle user state changes
+  // Handle user state changes, whether he is already logged in or not.
   function onAuthStateChanged(user) {
     if (user) {
       navigation.navigate('Main');
     } else {
-      navigation.navigate('Signin');
+      // navigation.navigate('Signin');
+      navigation.navigate('Main');
     }
   }
 
@@ -33,33 +22,21 @@ function Login({navigation}) {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.welcome_txt}>Loading...</Text>
-      <ActivityIndicator size='large'></ActivityIndicator>
+    <View style={{flex: 1,
+                  backgroundColor: '#fff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+        <Text style={{fontWeight:"bold",
+                      fontSize:50,
+                      color:"#339c4d",
+                      textAlign: 'center',
+                      marginBottom:40}}>
+          Loading...
+        </Text>
+        <ActivityIndicator size='large'/>
     </View>
   );
 }
-  
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    welcome_txt: {
-      fontWeight:"bold",
-      fontSize:50,
-      color:"#339c4d",
-      textAlign: 'center',
-      marginBottom:40
-    },
-    secondary_welcome_txt: {
-      fontWeight:"bold",
-      fontSize:40,
-      color:"#339c4d",
-      textAlign: 'center',
-    }
-  });
-    
-  export default Login
+ 
+export default Login

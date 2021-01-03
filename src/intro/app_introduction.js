@@ -10,6 +10,7 @@ import {
   useWindowDimensions,
   Alert
 } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const slides = [
 	{
@@ -53,7 +54,10 @@ const AppIntroduction = ( { navigation } ) => {
   const windowWidth = useWindowDimensions().width;
   const GetButtonHandler = (slide, slideIndex,buttonData) => { 
     if(buttonData.handler === 'get_started'){
-      return () => { navigation.navigate("Login") }
+      return (async () => { 
+        await AsyncStorage.setItem('@APPConfig:PassedIntro', 'true');
+        navigation.navigate("Login") 
+      })
     }
     if(buttonData.handler === 'scroll_to_end'){
       return () => {

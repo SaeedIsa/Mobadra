@@ -14,7 +14,6 @@ const Tab = createMaterialBottomTabNavigator();
 
 // Creating tabs main screen
 function Main() {
-  
   useEffect(() =>{
     AsyncStorage.setItem('@APPConfig:Opened', JSON.stringify(true));
   }, [])

@@ -31,7 +31,6 @@ function WelcomeScreen({navigation}) {
     // Navigate after loading Mobadra logo (animation expected)
     setTimeout(() => {
         if (passedIntro) {
-            
             console.log('navigating to login'); // TODO: remove log
             navigation.navigate('Login');
         } else {
